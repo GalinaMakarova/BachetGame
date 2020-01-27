@@ -3,40 +3,38 @@ package com.company;
 import java.util.Scanner;
 
 class MessagesLogic {
-    static int userItemsCount = 1;
 
-    static void restItemsMessage() {
-        System.out.println("На столе осталось " + GameLogic.itemsCountRest + " спичек.");
+    void restItemsMessage(int itemsCountRest) {
+        System.out.println("На столе осталось " + itemsCountRest + " спичек.");
     }
 
-    static void pcTurnMessage(int itemsCount) {
-        System.out.println("Количество выбранных компьютером спичек = " + itemsCount);
+    void pcTurnMessage(int itemsCountRest) {
+        System.out.println("Количество выбранных компьютером спичек = " + itemsCountRest);
     }
 
-    static void userTurnMessage() {
-        restItemsMessage();
-        if (GameLogic.itemsCountRest > 1) {
+    int userTurnCount(int itemsCountRest) {
+        restItemsMessage(itemsCountRest);
+        if (itemsCountRest > 1) {
             System.out.print(" - Ход игрока. Введите количество спичек: ");
             while (true) {
                 Scanner scan = new Scanner(System.in);
                 if (scan.hasNextInt()) {
-                    userItemsCount = scan.nextInt();
+                    int userItemsCount = scan.nextInt();
                     if (userItemsCount < 1 || userItemsCount > 3) {
                         System.out.print("Введите число от 1 до 3: ");
                     } else {
-                        break;
+                        return userItemsCount;
                     }
                 } else {
                     System.out.print("Введите число от 1 до 3: ");
                 }
             }
         }
+        return -1;
     }
 
-    static void gameIsOverMessage() {
-        if (!GameLogic.GameStatus) {
-            System.out.println("Для игрока осталась последняя спичка. Игрок проиграл!");
-        }
+    void gameIsOverMessage() {
+        System.out.println("Для игрока осталась последняя спичка. Игрок проиграл!");
     }
 
 }
