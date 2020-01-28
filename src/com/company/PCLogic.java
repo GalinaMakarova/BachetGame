@@ -1,22 +1,20 @@
 package com.company;
 
 class PCLogic {
-    private static final int[] correctItemsCountArray = {20, 17, 13, 9, 5, 1};
-    private static int correctItemsCountIndex = 0;
-    static int pcItemsCount = 0;
+    private final int[] correctItemsCountArray = {20, 17, 13, 9, 5, 1};
 
-    static void itemsCountForPCTurn() {
-        int nextIndex = correctItemsCountIndex + 1;
-        while (true) {
-            if (GameLogic.itemsCountRest <= correctItemsCountArray[correctItemsCountIndex] &&
-                    GameLogic.itemsCountRest > correctItemsCountArray[nextIndex]) {
-                correctItemsCountIndex = nextIndex;
-                pcItemsCount = GameLogic.itemsCountRest - correctItemsCountArray[correctItemsCountIndex];
-                break;
+    int itemsCountForPCTurn(int itemsCountRest) {
+        int currentItemsCountIndex = 0;
+        int nextItemsCountIndex = currentItemsCountIndex + 1;
+        while (nextItemsCountIndex < correctItemsCountArray.length) {
+            if (itemsCountRest <= correctItemsCountArray[currentItemsCountIndex] &&
+                    itemsCountRest >= correctItemsCountArray[nextItemsCountIndex]) {
+                return itemsCountRest - correctItemsCountArray[nextItemsCountIndex];
             } else {
-                correctItemsCountIndex = nextIndex;
-                nextIndex = nextIndex + 1;
+                currentItemsCountIndex = nextItemsCountIndex;
+                nextItemsCountIndex = nextItemsCountIndex + 1;
             }
         }
+        return 0;
     }
 }
